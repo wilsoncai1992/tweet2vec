@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 K1 = 1
 K2 = 10
 
-HIST = False
+HIST = True
 
 def precision(p, t, k):
     '''
@@ -93,7 +93,8 @@ def main(result_path, dict_path):
         width = 0.7 * (bins[1] - bins[0])
         center = (bins[:-1] + bins[1:]) / 2
         plt.bar(center, hist, align='center', width=width)
-        plt.show()
+        # plt.show()
+        plt.savefig('./PrecRecall.png')
 
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
