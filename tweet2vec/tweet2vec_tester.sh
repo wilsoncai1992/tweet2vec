@@ -4,10 +4,10 @@
 fulltestdata="../misc/tester_example.txt"
 
 # specify model path here
-modelpath="best_model/"
+modelpath="./model/tweet2vec"
 
 # specify result path here
-resultpath="result/"
+resultpath="$modelpath/result/"
 
 mkdir -p $resultpath
 
