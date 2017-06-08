@@ -18,7 +18,8 @@ def classify(tweet, t_mask, params, n_classes, n_chars):
     # tweet embedding
     emb_layer = tweet2vec(tweet, t_mask, params, n_chars)
     # Dense layer for classes
-    l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.softmax)
+    # l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.softmax)
+    l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.sigmoid)
 
     return lasagne.layers.get_output(l_dense), lasagne.layers.get_output(emb_layer)
 
@@ -79,6 +80,7 @@ def main(args):
     print("Testing...")
     out_data = []
     out_pred = []
+    out_pred_p = []
     out_emb = []
     out_target = []
     for xr,y in test_iter:
@@ -90,6 +92,7 @@ def main(args):
         for idx, item in enumerate(xr):
             out_data.append(item)
             out_pred.append(ranks[idx,:])
+            out_pred_p.append(p)
             out_emb.append(e[idx,:])
             out_target.append(y[idx])
 
@@ -99,6 +102,8 @@ def main(args):
         pkl.dump(out_data,f)
     with open('%s/predictions.npy'%save_path,'w') as f:
         np.save(f,np.asarray(out_pred))
+    with open('%s/predictions_p.npy'%save_path,'w') as f:
+        np.save(f,np.asarray(out_pred_p))
     with open('%s/embeddings.npy'%save_path,'w') as f:
         np.save(f,np.asarray(out_emb))
     with open('%s/targets.pkl'%save_path,'w') as f:

@@ -37,9 +37,11 @@ def classify(tweet, t_mask, params, n_classes, n_chars):
     # tweet embedding
     emb_layer = tweet2vec(tweet, t_mask, params, n_chars)
     # Dense layer for classes
-    l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.softmax)
+    # l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.softmax)
+    l_dense = lasagne.layers.DenseLayer(emb_layer, n_classes, W=params['W_cl'], b=params['b_cl'], nonlinearity=lasagne.nonlinearities.sigmoid)
 
     return lasagne.layers.get_output(l_dense), l_dense, lasagne.layers.get_output(emb_layer)
+    # return l_dense, lasagne.layers.get_output(emb_layer)
 
 def main(train_path,val_path,save_path,num_epochs=NUM_EPOCHS):
     global T1
@@ -73,7 +75,7 @@ def main(train_path,val_path,save_path,num_epochs=NUM_EPOCHS):
         batch.save_dictionary(chardict,charcount,'%s/dict.pkl' % save_path)
         # params
         params = init_params(n_chars=n_char)
-        
+
         labeldict, labelcount = batch.build_label_dictionary(yt)
         batch.save_dictionary(labeldict, labelcount, '%s/label_dict.pkl' % save_path)
 
@@ -108,6 +110,7 @@ def main(train_path,val_path,save_path,num_epochs=NUM_EPOCHS):
 
     # network for prediction
     predictions, net, emb = classify(tweet, t_mask, params, n_classes, n_char)
+    # net, emb = classify(tweet, t_mask, params, n_classes, n_char)
 
     # batch loss
     loss = lasagne.objectives.categorical_crossentropy(predictions, targets)
