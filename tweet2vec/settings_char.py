@@ -1,7 +1,7 @@
 # Define all global params here
 
 # Number of epochs
-NUM_EPOCHS = 30
+NUM_EPOCHS = 5
 # Batch size
 N_BATCH = 64
 # Max sequence length
@@ -13,13 +13,13 @@ SCALE = 0.1
 # Dimensionality of C2W hidden states
 C2W_HDIM = 500
 # Dimensionality of word vectors
-WDIM = 500
+WDIM = 100
 # Number of classes
-MAX_CLASSES = 6000
+MAX_CLASSES = 3000
 # Learning rate
 LEARNING_RATE = 0.01
 # Display frequency
-DISPF = 5
+DISPF = 10
 # Save frequency
 SAVEF = 1000
 # Regularization

@@ -92,7 +92,7 @@ def main(args):
         for idx, item in enumerate(xr):
             out_data.append(item)
             out_pred.append(ranks[idx,:])
-            out_pred_p.append(p)
+            out_pred_p.append(p[idx,:])
             out_emb.append(e[idx,:])
             out_target.append(y[idx])
 
