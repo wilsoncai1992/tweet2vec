@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 K1 = 1
 K2 = 10
 
-HIST = True
+HIST = False
 
 def precision(p, t, k):
     '''
